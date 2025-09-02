@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  <article class="case">
+    <h1>{{ case.titulo }}</h1>
+    <h3>Problema</h3>
+    <p>{{ case.problema }}</p>
+    <h3>Algoritmo utilizado</h3>
+    <p>{{ case.algoritmo }}</p>
+    <h3>Beneficios</h3>
+    <p>{{ case.beneficios }}</p>
+    <h3>Ejemplo real</h3>
+    <p>{{ case.ejemplo }}</p>
+    <a class="btn" href="{{ url_for('home') }}">Volver al inicio</a>
+  </article>
+{% endblock %}

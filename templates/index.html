@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>una wea</title>
-    <link rel="stylesheet" href="{(url_for('static',filename='style.css'))}">
-</head>
-<body>
-    <h1> hello mdfk</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Casos de uso de Machine Learning Supervisado</h1>
+  <p>Explora cuatro casos reales con problema, algoritmo, beneficios y ejemplos.</p>
+  <section class="cards">
+    {% for c in cases %}
+    <article class="card">
+      <h2>{{ c.titulo }}</h2>
+      <p><strong>Problema:</strong> {{ c.problema }}</p>
+      <p><strong>Algoritmo:</strong> {{ c.algoritmo }}</p>
+      <p><strong>Beneficios:</strong> {{ c.beneficios }}</p>
+      <a class="btn" href="{{ url_for('case_detail', case_id=c.id) }}">Ver detalles</a>
+    </article>
+    {% endfor %}
+  </section>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or 'Casos ML Supervisado' }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <ul class="menu">
+        <li><a href="{{ url_for('home') }}">Inicio</a></li>
+        <li class="has-sub">
+          <a href="#">Casos</a>
+          <ul class="submenu">
+            {% for c in cases %}
+            <li><a href="{{ url_for('case_detail', case_id=c.id) }}">{{ c.titulo }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li><a href="{{ url_for('referencias') }}">Referencias</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <p>Proyecto A3 — Machine Learning Supervisado</p>
+  </footer>
+</body>
+</html>

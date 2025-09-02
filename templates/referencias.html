@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Referencias (formato APA)</h1>
+  <ol class="refs">
+    {% for r in referencias %}
+      <li>{{ r }}</li>
+    {% endfor %}
+  </ol>
+{% endblock %}

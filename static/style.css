@@ -26,3 +26,98 @@ body { margin: 0; font-family: Arial, Helvetica, sans-serif; background:#f7f8fb;
 
 /* Footer */
 .footer { padding: 16px; text-align: center; color:#eee; background:#7b0b91; margin-top: 40px; }
+
+/* ==== Estilos para referencias APA ==== */
+.refs {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  line-height: 1.6;
+}
+
+.refs li {
+  margin-bottom: 14px;
+  text-align: justify;  /* apariencia académica */
+  font-size: 15px;
+}
+
+.refs a {
+  color: #5d10b4;         /* Azul estilo DOI */
+  font-size: 0.95em;      /* un poco más pequeño que el texto principal */
+  text-decoration: none;  /* sin subrayado inicial */
+  margin-left: 4px;
+  word-break: break-word; /* para evitar que los links largos rompan el diseño */
+}
+
+.refs a:hover {
+  text-decoration: underline;
+  color: #830d79;         /* Azul más oscuro al pasar el mouse */
+}
+
+/* ==== Arreglo para mantener visible el submenú en la barra ==== */
+.nav {
+  position: relative;
+  z-index: 1000; /* para que el menú quede encima de otros elementos */
+}
+
+.has-sub .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;   /* justo debajo del botón padre */
+  left: 0;
+  background: #a517c2;
+  list-style: none;
+  padding: 8px;
+  margin: 0;
+  border-radius: 10px;
+  min-width: 260px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+}
+
+.has-sub:hover .submenu,
+.has-sub .submenu:hover {
+  display: block; /* mantiene visible al pasar por el submenú */
+}
+/* ==== Estilos para referencias APA ==== */
+.refs {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  line-height: 1.6;
+}
+
+.refs li {
+  margin-bottom: 18px;
+  text-align: justify;
+  font-size: 15px;
+}
+
+.refs a {
+  display: block;        /* hace que el link aparezca debajo del texto */
+  margin-top: 4px;
+  color: #5d10b4;
+  font-size: 0.9em;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.refs a:hover {
+  text-decoration: underline;
+  color: #830d79;
+}
+
+/* Asegura que menú y logo estén en extremos */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo */
+.logo img {
+  height: 40px;   /* Ajusta el tamaño a gusto */
+  width: auto;
+  border-radius: 50%; /* opcional */
+}

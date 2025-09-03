@@ -2,7 +2,7 @@ from flask import Flask, render_template, abort, url_for
 
 app = Flask(__name__)
 
-# ===== Datos de investigación (puedes editar los textos luego) =====
+# ===== Datos de investigación (casos de uso) =====
 cases = [
     {
         "id": "retinopatia",
@@ -38,12 +38,12 @@ cases = [
     }
 ]
 
-# Referencias en formato APA (reemplaza por tus citas definitivas)
+# ===== Referencias en formato HTML clicable =====
 referencias_apa = [
-    "Autor, A. A. (Año). Título del artículo. Revista, volumen(número), páginas. https://doi.org/xx",
-    "Autor, B. B., & Autor, C. C. (Año). Título del recurso. Editorial.",
-    "Organización. (Año). Título del informe. URL",
-    "Autor, D. D. (Año). Título del paper relacionado. Conferencia/Revista."
+    '<a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi79riDk7uPAxUNRzABHd60MOAQFnoECB4QAQ&url=https%3A%2F%2Ftranslate.google.com%2Ftranslate%3Fu%3Dhttps%3A%2F%2Fjournalretinavitreous.biomedcentral.com%2Farticles%2F10.1186%2Fs40942-021-00352-2%26hl%3Des%26sl%3Den%26tl%3Des%26client%3Dsrp&usg=AOvVaw2qeTyXbZcHWef8TTDQw_ee&opi=89978449" target="_blank">Detección de retinopatía diabética</a>',
+    '<a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjL4PKWlLuPAxUXRDABHWCSAv0QFnoECBgQAQ&url=https%3A%2F%2Ftranslate.google.com%2Ftranslate%3Fu%3Dhttps%3A%2F%2Fbreast-cancer-research.biomedcentral.com%2Farticles%2F10.1186%2Fs13058-024-01895-6%26hl%3Des%26sl%3Den%26tl%3Des%26client%3Dsrp&usg=AOvVaw10gEgPuJPE8iEiznY3KlHA&opi=89978449" target="_blank">Detección de cáncer de mama en mamografías</a>',
+    '<a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiGndTRlLuPAxURSTABHYYyBOsQFnoECB8QAQ&url=https%3A%2F%2Fseon.io%2Fes%2Frecursos%2Fmachine-learning-para-detectar-fraude%2F&usg=AOvVaw0CRIXu_Q1UFoM5VFPsGtsY&opi=89978449" target="_blank">Detección de fraude en pagos</a>',
+    '<a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwj2lsSJlbuPAxXtQTABHapsBXkQFnoECB4QAQ&url=https%3A%2F%2Ftranslate.google.com%2Ftranslate%3Fu%3Dhttps%3A%2F%2Fwww.advancedtech.com%2Fblog%2Fmachine-learning-predictive-maintenance%2F%26hl%3Des%26sl%3Den%26tl%3Des%26client%3Dsrp&usg=AOvVaw3cxD1DaiYxzKO58TZX6_jg&opi=89978449" target="_blank">Mantenimiento predictivo</a>'
 ]
 
 # ===== Rutas =====

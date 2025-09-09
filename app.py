@@ -1,4 +1,5 @@
-from flask import Flask, render_template, abort, url_for
+from flask import Flask, render_template, abort, request
+from regresion_lineal import predict_weight, get_training_plot  # <-- nuevo import
 
 app = Flask(__name__)
 
@@ -38,15 +39,21 @@ cases = [
     }
 ]
 
-# ===== Referencias en formato HTML clicable =====
-referencias_apa = [
-    '<a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi79riDk7uPAxUNRzABHd60MOAQFnoECB4QAQ&url=https%3A%2F%2Ftranslate.google.com%2Ftranslate%3Fu%3Dhttps%3A%2F%2Fjournalretinavitreous.biomedcentral.com%2Farticles%2F10.1186%2Fs40942-021-00352-2%26hl%3Des%26sl%3Den%26tl%3Des%26client%3Dsrp&usg=AOvVaw2qeTyXbZcHWef8TTDQw_ee&opi=89978449" target="_blank">Detección de retinopatía diabética</a>',
-    '<a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjL4PKWlLuPAxUXRDABHWCSAv0QFnoECBgQAQ&url=https%3A%2F%2Ftranslate.google.com%2Ftranslate%3Fu%3Dhttps%3A%2F%2Fbreast-cancer-research.biomedcentral.com%2Farticles%2F10.1186%2Fs13058-024-01895-6%26hl%3Des%26sl%3Den%26tl%3Des%26client%3Dsrp&usg=AOvVaw10gEgPuJPE8iEiznY3KlHA&opi=89978449" target="_blank">Detección de cáncer de mama en mamografías</a>',
-    '<a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiGndTRlLuPAxURSTABHYYyBOsQFnoECB8QAQ&url=https%3A%2F%2Fseon.io%2Fes%2Frecursos%2Fmachine-learning-para-detectar-fraude%2F&usg=AOvVaw0CRIXu_Q1UFoM5VFPsGtsY&opi=89978449" target="_blank">Detección de fraude en pagos</a>',
-    '<a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwj2lsSJlbuPAxXtQTABHapsBXkQFnoECB4QAQ&url=https%3A%2F%2Ftranslate.google.com%2Ftranslate%3Fu%3Dhttps%3A%2F%2Fwww.advancedtech.com%2Fblog%2Fmachine-learning-predictive-maintenance%2F%26hl%3Des%26sl%3Den%26tl%3Des%26client%3Dsrp&usg=AOvVaw3cxD1DaiYxzKO58TZX6_jg&opi=89978449" target="_blank">Mantenimiento predictivo</a>'
+# ===== Referencias (divididas por tema) =====
+referencias_supervisado = [
+    '<a href="https://journalretinavitreous.biomedcentral.com/articles/10.1186/s40942-021-00352-2" target="_blank">Detección de retinopatía diabética</a>',
+    '<a href="https://breast-cancer-research.biomedcentral.com/articles/10.1186/s13058-024-01895-6" target="_blank">Detección de cáncer de mama en mamografías</a>',
+    '<a href="https://seon.io/es/recursos/machine-learning-para-detectar-fraude/" target="_blank">Detección de fraude en pagos</a>',
+    '<a href="https://www.advancedtech.com/blog/machine-learning-predictive-maintenance/" target="_blank">Mantenimiento predictivo</a>'
 ]
 
-# ===== Rutas =====
+referencias_regresion = [
+    '<a href="https://scikit-learn.org/stable/modules/linear_model.html" target="_blank">Documentación oficial de scikit-learn: Linear Regression</a>',
+    '<a href="https://towardsdatascience.com/a-complete-guide-to-linear-regression-in-python-83c2f1282f1c" target="_blank">Guía práctica de regresión lineal en Python</a>',
+    '<a href="https://statisticsbyjim.com/regression/linear-regression-tutorial/" target="_blank">Tutorial sobre regresión lineal</a>'
+]
+
+# ===== Rutas Casos =====
 @app.route('/')
 def home():
     return render_template('index.html', cases=cases)
@@ -60,7 +67,39 @@ def case_detail(case_id):
 
 @app.route('/referencias')
 def referencias():
-    return render_template('referencias.html', referencias=referencias_apa, cases=cases)
+    return render_template(
+        'referencias.html',
+        referencias_supervisado=referencias_supervisado,
+        referencias_regresion=referencias_regresion,
+        cases=cases
+    )
+
+# ===== Rutas Regresión Lineal =====
+@app.route('/regresion/conceptos')
+def regresion_conceptos():
+    return render_template(
+        'regresion_conceptos.html',
+        referencias=referencias_regresion,
+        cases=cases
+    )
+
+@app.route('/regresion/practico', methods=['GET', 'POST'])
+def regresion_practico():
+    prediction = None
+    if request.method == 'POST':
+        estatura = float(request.form['estatura'])
+        edad = float(request.form['edad'])
+        prediction = predict_weight(estatura, edad)
+
+    # Generar gráfico y guardarlo
+    plot_path = get_training_plot()
+
+    return render_template(
+        'regresion_practico.html',
+        prediction=prediction,
+        plot_path=plot_path,
+        cases=cases
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, abort, request, url_for
-from regresion_lineal import predict, plot_data_and_regression  # funciones reales
+from regresion_lineal import predict, plot_data_and_regression, plot_new_data  # funciones reales
 import os
 
 app = Flask(__name__)
@@ -87,12 +87,16 @@ def regresion_conceptos():
 @app.route('/regresion/practico', methods=['GET', 'POST'])
 def regresion_practico():
     prediction = None
+    user_plot = None  # usamos el mismo nombre que en el template
     if request.method == 'POST':
         estatura = float(request.form['estatura'])
         edad = float(request.form['edad'])
         prediction = predict(estatura, edad)
 
-    # Generar gráficos
+        # Gráfico con el punto ingresado por el usuario
+        user_plot = plot_new_data(estatura, edad, prediction)
+
+    # Gráficos de entrenamiento
     plot1, plot2 = plot_data_and_regression()
 
     return render_template(
@@ -100,8 +104,10 @@ def regresion_practico():
         prediction=prediction,
         plot1=plot1,
         plot2=plot2,
+        user_plot=user_plot,   
         cases=cases
     )
+
 
 
 if __name__ == '__main__':

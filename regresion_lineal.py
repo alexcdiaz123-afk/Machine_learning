@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 BASE_DIR = os.path.dirname(__file__)
 DATA_DIR = os.path.join(BASE_DIR, "data")
 MODEL_DIR = os.path.join(BASE_DIR, "models")
-PLOT_DIR = os.path.join(BASE_DIR, "static", "plots")  # <- carpeta fija para los plots
+PLOT_DIR = os.path.join(BASE_DIR, "static", "plots")  # carpeta fija para los plots
 
 DATA_PATH = os.path.join(DATA_DIR, "weight_height_age.csv")
 MODEL_PATH = os.path.join(MODEL_DIR, "linreg_model.joblib")
@@ -65,11 +65,11 @@ def plot_data_and_regression():
     Genera dos gráficos y los guarda en static/plots:
      - peso vs estatura (edad color)
      - peso vs edad (estatura color)
-    Devuelve (ruta_relativa1, ruta_relativa2) aptas para usar en templates con url_for('static', ...).
+    Devuelve (ruta_relativa1, ruta_relativa2).
     """
     df = load_dataset()
     model = load_model()
-    os.makedirs(PLOT_DIR, exist_ok=True)  # aseguramos carpeta "plots"
+    os.makedirs(PLOT_DIR, exist_ok=True)
     ts = str(int(time.time()))
     file1 = os.path.join(PLOT_DIR, f"reg_plot_height_{ts}.png")
     file2 = os.path.join(PLOT_DIR, f"reg_plot_age_{ts}.png")
@@ -110,10 +110,31 @@ def plot_data_and_regression():
     fig2.savefig(file2)
     plt.close(fig2)
 
-    # Devolvemos las rutas relativas para url_for
     rel1 = "plots/" + os.path.basename(file1)
     rel2 = "plots/" + os.path.basename(file2)
     return rel1, rel2
+
+
+def plot_new_data(height_m, age_yr, prediction):
+    """
+    Genera un gráfico resaltando el punto predicho por el usuario.
+    Devuelve la ruta relativa del gráfico.
+    """
+    os.makedirs(PLOT_DIR, exist_ok=True)
+    ts = str(int(time.time()))
+    file = os.path.join(PLOT_DIR, f"user_input_{ts}.png")
+
+    fig, ax = plt.subplots(figsize=(6, 4))
+    ax.scatter(height_m, prediction, color="red", s=100, label="Predicción usuario")
+    ax.set_xlabel("Estatura (m)")
+    ax.set_ylabel("Peso (kg)")
+    ax.set_title(f"Predicción individual (Edad: {age_yr:.0f} años)")
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(file)
+    plt.close(fig)
+
+    return "plots/" + os.path.basename(file)
 
 
 if __name__ == "__main__":

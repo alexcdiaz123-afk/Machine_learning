@@ -4,7 +4,39 @@
 <div class="container mt-4">
     <h1 class="mb-4">Ejercicio Práctico: Predicción de Peso</h1>
 
+    <!-- Explicación del dataset -->
+    <div class="alert alert-info">
+        <h5>Explicación del dataset de entrenamiento</h5>
+        <p>
+            El dataset contiene <strong>200 registros simulados</strong> con tres variables principales:
+        </p>
+        <ul>
+            <li><strong>Estatura (m):</strong> altura en metros de las personas.</li>
+            <li><strong>Edad (años):</strong> edad de los individuos (entre 5 y 90 años).</li>
+            <li><strong>Peso (kg):</strong> calculado a partir de una fórmula lineal con ruido aleatorio.</li>
+        </ul>
+        <p>
+            Este dataset se generó artificialmente para entrenar un modelo de
+            <strong>Regresión Lineal Múltiple</strong> que predice el peso a partir de la estatura y la edad.
+        </p>
+    </div>
+
+    <!-- Gráficos del dataset de entrenamiento -->
+    <div class="row mt-4">
+        <div class="col-md-6 text-center">
+            <h5>Relación Edad vs Peso</h5>
+            <img src="{{ url_for('static', filename=plot2) }}" class="img-fluid rounded shadow" alt="Gráfico Edad">
+        </div>
+        <div class="col-md-6 text-center">
+            <h5>Relación Estatura vs Peso</h5>
+            <img src="{{ url_for('static', filename=plot1) }}" class="img-fluid rounded shadow" alt="Gráfico Estatura">
+        </div>
+    </div>
+
+    <hr class="my-4">
+
     <!-- Formulario para ingresar datos -->
+    <h3>Predicción personalizada</h3>
     <form method="POST" class="mb-4">
         <div class="mb-3">
             <label for="estatura" class="form-label">Estatura (m):</label>
@@ -25,18 +57,12 @@
             <h4 class="alert-heading">Resultado:</h4>
             <p>El peso estimado es: <strong>{{ prediction|round(2) }} kg</strong></p>
         </div>
-    {% endif %}
 
-    <!-- Gráficos -->
-    <div class="row mt-4">
-        <div class="col-md-6 text-center">
-            <h5>Relación Edad vs Peso</h5>
-            <img src="{{ url_for('static', filename=plot1) }}" class="img-fluid rounded shadow" alt="Gráfico Edad">
+        <!-- Gráfico con los datos ingresados -->
+        <div class="text-center mt-4">
+            <h5>Predicción con los datos ingresados</h5>
+            <img src="{{ url_for('static', filename=user_plot) }}" class="img-fluid rounded shadow" alt="Gráfico usuario">
         </div>
-        <div class="col-md-6 text-center">
-            <h5>Relación Estatura vs Peso</h5>
-            <img src="{{ url_for('static', filename=plot2) }}" class="img-fluid rounded shadow" alt="Gráfico Estatura">
-        </div>
-    </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -1,5 +1,6 @@
-from flask import Flask, render_template, abort, request
-from regresion_lineal import predict_weight, get_training_plot  # <-- nuevo import
+from flask import Flask, render_template, abort, request, url_for
+from regresion_lineal import predict, plot_data_and_regression  # funciones reales
+import os
 
 app = Flask(__name__)
 
@@ -89,17 +90,19 @@ def regresion_practico():
     if request.method == 'POST':
         estatura = float(request.form['estatura'])
         edad = float(request.form['edad'])
-        prediction = predict_weight(estatura, edad)
+        prediction = predict(estatura, edad)
 
-    # Generar gráfico y guardarlo
-    plot_path = get_training_plot()
+    # Generar gráficos
+    plot1, plot2 = plot_data_and_regression()
 
     return render_template(
         'regresion_practico.html',
         prediction=prediction,
-        plot_path=plot_path,
+        plot1=plot1,
+        plot2=plot2,
         cases=cases
     )
+
 
 if __name__ == '__main__':
     app.run(debug=True)

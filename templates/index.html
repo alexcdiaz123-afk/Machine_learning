@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h1>Casos de uso de Machine Learning Supervisado</h1>
-  <p>Explora cuatro casos reales con problema, algoritmo, beneficios y ejemplos.</p>
+  <h1>Machine Learning Supervisado</h1>
+  <p>Este proyecto integra ejemplos de casos de uso de algoritmos supervisados y la implementación de una regresión lineal aplicada a la predicción del <strong>peso de una persona según su estatura y edad</strong>.</p>
+
+  <h2>Casos de uso</h2>
+  <p>Explora cuatro casos reales con su problema, algoritmo, beneficios y ejemplos.</p>
   <section class="cards">
     {% for c in cases %}
     <article class="card">
-      <h2>{{ c.titulo }}</h2>
+      <h3>{{ c.titulo }}</h3>
       <p><strong>Problema:</strong> {{ c.problema }}</p>
       <p><strong>Algoritmo:</strong> {{ c.algoritmo }}</p>
       <p><strong>Beneficios:</strong> {{ c.beneficios }}</p>
@@ -13,4 +16,11 @@
     </article>
     {% endfor %}
   </section>
+
+  <h2>Nuevo tema: Regresión Lineal</h2>
+  <p>Se incluye una pestaña dedicada a la regresión lineal con dos apartados:</p>
+  <ul>
+    <li><strong>Conceptos básicos:</strong> síntesis teórica y referencias.</li>
+    <li><strong>Ejercicio práctico:</strong> visualización de los datos de entrenamiento, la línea de regresión y predicciones con nuevos datos.</li>
+  </ul>
 {% endblock %}

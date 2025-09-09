@@ -12,10 +12,11 @@ import matplotlib.pyplot as plt
 BASE_DIR = os.path.dirname(__file__)
 DATA_DIR = os.path.join(BASE_DIR, "data")
 MODEL_DIR = os.path.join(BASE_DIR, "models")
-IMG_DIR = os.path.join(BASE_DIR, "static", "images")
+PLOT_DIR = os.path.join(BASE_DIR, "static", "plots")  # <- carpeta fija para los plots
 
 DATA_PATH = os.path.join(DATA_DIR, "weight_height_age.csv")
 MODEL_PATH = os.path.join(MODEL_DIR, "linreg_model.joblib")
+
 
 def generate_sample_dataset(n=200, seed=42):
     rng = np.random.RandomState(seed)
@@ -27,10 +28,12 @@ def generate_sample_dataset(n=200, seed=42):
     df.to_csv(DATA_PATH, index=False)
     return df
 
+
 def load_dataset():
     if not os.path.exists(DATA_PATH):
         return generate_sample_dataset()
     return pd.read_csv(DATA_PATH)
+
 
 def train_and_save_model():
     df = load_dataset()
@@ -42,11 +45,13 @@ def train_and_save_model():
     dump(model, MODEL_PATH)
     return model, df
 
+
 def load_model():
     if not os.path.exists(MODEL_PATH):
         model, _ = train_and_save_model()
         return model
     return load(MODEL_PATH)
+
 
 def predict(height_m, age_yr):
     model = load_model()
@@ -54,27 +59,28 @@ def predict(height_m, age_yr):
     pred = model.predict(Xnew)[0]
     return float(pred)
 
+
 def plot_data_and_regression():
     """
-    Genera dos gráficos y los guarda en static/images:
+    Genera dos gráficos y los guarda en static/plots:
      - peso vs estatura (edad color)
      - peso vs edad (estatura color)
-    Devuelve (ruta_relativa1, ruta_relativa2) aptas para usar en templates con url_for('static', ...)
+    Devuelve (ruta_relativa1, ruta_relativa2) aptas para usar en templates con url_for('static', ...).
     """
     df = load_dataset()
     model = load_model()
-    os.makedirs(IMG_DIR, exist_ok=True)
+    os.makedirs(PLOT_DIR, exist_ok=True)  # aseguramos carpeta "plots"
     ts = str(int(time.time()))
-    file1 = os.path.join(IMG_DIR, f"reg_plot_height_{ts}.png")
-    file2 = os.path.join(IMG_DIR, f"reg_plot_age_{ts}.png")
+    file1 = os.path.join(PLOT_DIR, f"reg_plot_height_{ts}.png")
+    file2 = os.path.join(PLOT_DIR, f"reg_plot_age_{ts}.png")
 
-    # Plot 1: Peso vs Estatura (edad promedio para la línea)
+    # Plot 1: Peso vs Estatura
     mean_age = df["age_yr"].mean()
     heights = np.linspace(df["height_m"].min(), df["height_m"].max(), 100)
     X_pred = pd.DataFrame({"height_m": heights, "age_yr": mean_age})
     y_pred = model.predict(X_pred)
 
-    fig, ax = plt.subplots(figsize=(7,4))
+    fig, ax = plt.subplots(figsize=(7, 4))
     sc = ax.scatter(df["height_m"], df["weight_kg"], c=df["age_yr"], cmap="viridis", alpha=0.7)
     ax.plot(heights, y_pred, color="red", linewidth=2, label=f"Edad media ≈ {mean_age:.1f}")
     ax.set_xlabel("Estatura (m)")
@@ -86,13 +92,13 @@ def plot_data_and_regression():
     fig.savefig(file1)
     plt.close(fig)
 
-    # Plot 2: Peso vs Edad (estatura promedio para la línea)
+    # Plot 2: Peso vs Edad
     mean_height = df["height_m"].mean()
     ages = np.linspace(df["age_yr"].min(), df["age_yr"].max(), 100)
     X_pred2 = pd.DataFrame({"height_m": mean_height, "age_yr": ages})
     y_pred2 = model.predict(X_pred2)
 
-    fig2, ax2 = plt.subplots(figsize=(7,4))
+    fig2, ax2 = plt.subplots(figsize=(7, 4))
     sc2 = ax2.scatter(df["age_yr"], df["weight_kg"], c=df["height_m"], cmap="plasma", alpha=0.7)
     ax2.plot(ages, y_pred2, color="red", linewidth=2, label=f"Estatura media ≈ {mean_height:.2f} m")
     ax2.set_xlabel("Edad (años)")
@@ -104,12 +110,12 @@ def plot_data_and_regression():
     fig2.savefig(file2)
     plt.close(fig2)
 
-    # Rutas relativas para usar con url_for('static', filename='images/xxx.png')
-    rel1 = "images/" + os.path.basename(file1)
-    rel2 = "images/" + os.path.basename(file2)
+    # Devolvemos las rutas relativas para url_for
+    rel1 = "plots/" + os.path.basename(file1)
+    rel2 = "plots/" + os.path.basename(file2)
     return rel1, rel2
 
-# Si ejecutas directamente, entrena y genera un par de plots
+
 if __name__ == "__main__":
     train_and_save_model()
     print("Modelo entrenado y guardado en:", MODEL_PATH)

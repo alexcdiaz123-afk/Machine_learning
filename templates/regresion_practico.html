@@ -1,5 +1,42 @@
 {% extends "base.html" %}
+
 {% block content %}
-  <h1>Ejercicio práctico de Regresión Lineal</h1>
-  <p>Aquí podrás visualizar los datos de entrenamiento, la línea de regresión y probar predicciones con nuevos datos.</p>
+<div class="container mt-4">
+    <h1 class="mb-4">Ejercicio Práctico: Predicción de Peso</h1>
+
+    <!-- Formulario para ingresar datos -->
+    <form method="POST" class="mb-4">
+        <div class="mb-3">
+            <label for="estatura" class="form-label">Estatura (m):</label>
+            <input type="number" step="0.01" name="estatura" id="estatura" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="edad" class="form-label">Edad (años):</label>
+            <input type="number" name="edad" id="edad" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Predecir</button>
+    </form>
+
+    <!-- Resultado de la predicción -->
+    {% if prediction %}
+        <div class="alert alert-success">
+            <h4 class="alert-heading">Resultado:</h4>
+            <p>El peso estimado es: <strong>{{ prediction|round(2) }} kg</strong></p>
+        </div>
+    {% endif %}
+
+    <!-- Gráficos -->
+    <div class="row mt-4">
+        <div class="col-md-6 text-center">
+            <h5>Relación Edad vs Peso</h5>
+            <img src="{{ url_for('static', filename=plot1) }}" class="img-fluid rounded shadow" alt="Gráfico Edad">
+        </div>
+        <div class="col-md-6 text-center">
+            <h5>Relación Estatura vs Peso</h5>
+            <img src="{{ url_for('static', filename=plot2) }}" class="img-fluid rounded shadow" alt="Gráfico Estatura">
+        </div>
+    </div>
+</div>
 {% endblock %}

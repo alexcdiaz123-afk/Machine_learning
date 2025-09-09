@@ -12,6 +12,8 @@
       <!-- Menú a la izquierda -->
       <ul class="menu">
         <li><a href="{{ url_for('home') }}">Inicio</a></li>
+
+        <!-- Submenú de Casos -->
         <li class="has-sub">
           <a href="#">Casos</a>
           <ul class="submenu">
@@ -20,6 +22,17 @@
             {% endfor %}
           </ul>
         </li>
+
+        <!-- Nuevo menú de Regresión Lineal -->
+        <li class="has-sub">
+          <a href="#">Regresión Lineal</a>
+          <ul class="submenu">
+            <li><a href="{{ url_for('regresion_conceptos') }}">Conceptos básicos</a></li>
+            <li><a href="{{ url_for('regresion_practico') }}">Ejercicio práctico</a></li>
+          </ul>
+        </li>
+
+        <!-- Referencias -->
         <li><a href="{{ url_for('referencias') }}">Referencias</a></li>
       </ul>
 
@@ -37,7 +50,7 @@
   </main>
 
   <footer class="footer">
-    <p>Proyecto A3 — Machine Learning Supervisado</p>
+    <p>Proyecto A3 y A4 — Machine Learning Supervisado y Regresión Lineal</p>
   </footer>
 </body>
 </html>

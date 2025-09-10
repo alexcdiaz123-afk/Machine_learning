@@ -121,3 +121,12 @@ body { margin: 0; font-family: Arial, Helvetica, sans-serif; background:#f7f8fb;
   width: auto;
   border-radius: 50%; /* opcional */
 }
+.highlight-card {
+  background-color: #e1c0e2;
+  border: 2px solid #80266c;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 20px 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}

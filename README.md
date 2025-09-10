@@ -1,6 +1,7 @@
 # Machine_learning
 
-# Proyecto: Casos de Uso de Machine Learning Supervisado con Flask
+# DOCUMENTO CREADO PARA VER EL AVANCE DEL PROYECTO Y COMO SE ESTA ESTRUCTURANDO 
+# Proyecto: #1 Casos de Uso de Machine Learning Supervisado con Flask
 
 Este proyecto es una aplicación web desarrollada con Flask que presenta cuatro casos de uso relevantes del Machine Learning supervisado en distintas industrias, mostrando cómo se aplican algoritmos para resolver problemas reales.
 
@@ -63,3 +64,30 @@ app.py: Contiene la lógica de Flask, rutas y los datos de los casos de uso.
 templates/: Carpeta con los templates HTML (index.html, case.html, referencias.html, base.html).
 
 static/: Carpeta con archivos de estilo y otros recursos estáticos (por ejemplo styles.css).
+
+# Proyecto: #2 Regresiones Lineales:
+
+Este módulo del proyecto integra la implementación de una regresión lineal aplicada a la predicción del peso de una persona según su estatura y edad, mostrando de manera práctica cómo se entrenan y visualizan los modelos supervisados.
+
+# Funcionalidades:
+
+se agregaron dos nuevas funcionalidades al proyecto
+
+# Conceptos básicos:
+
+Se incluyen explicaciones teóricas sobre la regresión lineal, sus fórmulas y referencias académicas para entender su funcionamiento.
+
+# Ejercicio práctico:
+Permite visualizar los datos de entrenamiento, la línea de regresión ajustada y realizar predicciones con nuevos datos.
+
+# Uso de IA como apoyo
+
+Durante el desarrollo del proyecto se utilizaron herramientas de inteligencia artificial, como ChatGPT y Gemini, como apoyo para comprender y aplicar conceptos relacionados con regresiones en Python.
+
+Se utilizó la IA para entender el funcionamiento de las regresiones lineales y otras técnicas de predicción, facilitando la interpretación de resultados y su aplicación correcta en el proyecto.
+
+Se consultó código de ejemplo proporcionado por la IA, lo que ayudó a aprender buenas prácticas y adaptar soluciones a las necesidades específicas del proyecto.
+
+La IA también sirvió para resolver problemas técnicos y errores comunes, como dificultades en la instalación de paquetes o dependencias definidas en el requirements.txt, asegurando que el entorno de desarrollo estuviera correctamente configurado.
+
+El uso de la IA fue puramente explicativo y de apoyo académico, complementando la investigación y la implementación realizada por el equipo.

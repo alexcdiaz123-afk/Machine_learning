@@ -15,7 +15,7 @@
 
         <!-- Submenú de Casos -->
         <li class="has-sub">
-          <a href="#">Casos</a>
+          <a href="#">Casos de ML Supervisado</a>
           <ul class="submenu">
             {% for c in cases %}
             <li><a href="{{ url_for('case_detail', case_id=c.id) }}">{{ c.titulo }}</a></li>

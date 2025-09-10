@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+    <h2>Regresión Lineal — Conceptos básicos</h2>
+    <p><strong>Definición:</strong>
+Regresión lineal es un modelo matemático también conocido como ajuste lineal. Se emplea en el campo de la estadística con el objetivo de hacer una aproximación respecto a la relación de dependencia que involucra a variables independientes y variables dependientes.
+
+Es posible, indican los expertos en el tema, contrastar esta técnica centrada en el análisis de datos con la denominada regresión no lineal. Este último caso se distingue por un modelado de datos en el cual no llega a plasmarse en una línea recta la relación entre variables tanto dependientes como independientes.
+</p>
+
+    <h3>Supuestos habituales</h3>
+    <ul>
+      <li>Linealidad:</li>
+      <p>Este supuesto establece que existe una relación lineal entre las variables dependientes e independientes. El cambio en la variable dependiente debe ser proporcional al cambio en las variables independientes. La linealidad se puede evaluar mediante diagramas de dispersión o examinando los residuos.</p>
+      <li>Independencia de errores:</li>
+      <p>Este supuesto establece que las observaciones del conjunto de datos deben ser independientes entre sí. Las observaciones pueden depender unas de otras cuando se trabaja con series temporales o datos espaciales debido a su proximidad temporal o espacial. Violar este supuesto puede dar lugar a estimaciones sesgadas y predicciones poco fiables. Los modelos especializados, como series temporales o modelos espaciales, pueden ser más apropiados en tales casos.</p>
+      <li>Homoscedasticidad:</li>
+      <p>El supuesto de homogeneidad de varianzas, también conocido como supuesto de homocedasticidad, considera que la varianza es constante (no varía) en los diferentes niveles de un factor, es decir, entre diferentes grupos. En los modelos de regresión lineal, esta condición de homocedasticidad suele hacer referencia a los errores (residuos) del modelo, es decir, que la varianza de los errores es constante en todas las predicciones. Cuando la condición de homocedasticidad no se cumple, se utiliza el término heterocedasticidad.</p>
+      <li>Normalidad del error:</li>
+      <p>Los residuos deben seguir una distribución normal con media cero. Esta suposición es esencial para probar correctamente las hipótesis y construir intervalos de confianza. La normalidad de los errores se puede evaluar mediante métodos visuales, como un histograma o un gráfico QQ, o mediante pruebas estadísticas, como la prueba de Shapiro-Wilk o la prueba de Kolmogorov-Smirnovpy</p>
+    </ul>
+
+    <h3>Referencias (ejemplos APA 7)</h3>
+    <ol>
+      <li>Aprenda estadísticas fácilmente. (2023, 18 de abril).  <em>Supuestos en regresión lineal: una guía completa. Aprenda estadísticas fácilmente. </em> <a href="https://es.statisticseasily.com/supuestos-en-regresi%C3%B3n-lineal/ " target="_blank" >https://es.statisticseasily.com/supuestos-en-regresi%C3%B3n-lineal/</li>
+      <li>Definicion de (2025, 3 de febrero). <em> Regresión lineal: Qué es, importancia y usos. </em> <a href="https://definicion.de/regresion-lineal/" target="_blank">https://definicion.de/regresion-lineal/</li>
+    </ol>
+  </div>
+{% endblock %}

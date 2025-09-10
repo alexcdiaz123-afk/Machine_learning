@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or 'Machine Learning-Alexander Carreño-Francisco Lopez' }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <!-- Menú a la izquierda -->
+      <ul class="menu">
+        <li><a href="{{ url_for('home') }}">Inicio</a></li>
+
+        <!-- Submenú de Casos -->
+        <li class="has-sub">
+          <a href="#">Casos de ML Supervisado</a>
+          <ul class="submenu">
+            {% for c in cases %}
+            <li><a href="{{ url_for('case_detail', case_id=c.id) }}">{{ c.titulo }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+
+        <!-- Nuevo menú de Regresión Lineal -->
+        <li class="has-sub">
+          <a href="#">Regresión Lineal</a>
+          <ul class="submenu">
+            <li><a href="{{ url_for('regresion_conceptos') }}">Conceptos básicos</a></li>
+            <li><a href="{{ url_for('regresion_practico') }}">Ejercicio práctico</a></li>
+          </ul>
+        </li>
+
+        <!-- Referencias -->
+        <li><a href="{{ url_for('referencias') }}">Referencias</a></li>
+      </ul>
+
+      <!-- Logo a la derecha -->
+      <div class="logo">
+        <a href="{{ url_for('home') }}">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <p>Proyecto A3 y A4 — Machine Learning Supervisado y Regresión Lineal</p>
+  </footer>
+</body>
+</html>

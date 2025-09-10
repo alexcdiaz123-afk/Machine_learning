@@ -122,8 +122,8 @@ body { margin: 0; font-family: Arial, Helvetica, sans-serif; background:#f7f8fb;
   border-radius: 50%; /* opcional */
 }
 .highlight-card {
-  background-color: #e1c0e2;
-  border: 2px solid #80266c;
+  background-color: #fffdff;
+  border: 2px solid #7c316c;
   padding: 20px;
   border-radius: 10px;
   text-align: center;

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Regresión Logística</h1>
+
+    <p>
+        La <strong>regresión logística</strong> es un algoritmo de <em>Machine Learning supervisado</em> 
+        utilizado principalmente para resolver problemas de <strong>clasificación binaria</strong> 
+        (es decir, cuando la variable objetivo solo puede tomar dos valores, como "sí/no" o "0/1").
+    </p>
+
+    <p>
+        A diferencia de la regresión lineal, la regresión logística no predice directamente un valor numérico, 
+        sino la <strong>probabilidad</strong> de que una observación pertenezca a una clase. 
+        Para lograrlo, utiliza la función sigmoide o logística, que transforma cualquier valor real en un número entre 0 y 1.
+    </p>
+
+    <h5>Ejemplos de aplicación:</h5>
+    <ul>
+        <li>Clasificación de correos electrónicos como <em>spam</em> o <em>no spam</em>.</li>
+        <li>Diagnóstico médico (por ejemplo, predecir si un paciente tiene una enfermedad o no).</li>
+        <li>Predicción de abandono de clientes en un servicio (churn).</li>
+    </ul>
+
+    <h5>Referencias:</h5>
+    <ul>
+        <li><a href="https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression" target="_blank">Scikit-learn: Logistic Regression</a></li>
+        <li><a href="https://towardsdatascience.com/introduction-to-logistic-regression-66248243c148" target="_blank">Introducción a la regresión logística</a></li>
+    </ul>
+</div>
+{% endblock %}

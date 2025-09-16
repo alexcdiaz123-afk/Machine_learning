@@ -107,8 +107,20 @@ def regresion_practico():
         user_plot=user_plot,   
         cases=cases
     )
+# ===== Rutas Regresión Logística =====
+@app.route('/regresion_logistica/conceptos')
+def regresion_logistica_conceptos():
+    return render_template(
+        'regresion_logistica_conceptos.html',
+        cases=cases
+    )
 
-
+@app.route('/regresion_logistica/practico')
+def regresion_logistica_practico():
+    return render_template(
+        'regresion_logistica_practico.html',
+        cases=cases
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -2,31 +2,67 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4">Regresión Logística</h1>
+    <h1 class="mb-4">Regresión Logística: Conceptos Básicos</h1>
 
     <p>
-        La <strong>regresión logística</strong> es un algoritmo de <em>Machine Learning supervisado</em> 
-        utilizado principalmente para resolver problemas de <strong>clasificación binaria</strong> 
-        (es decir, cuando la variable objetivo solo puede tomar dos valores, como "sí/no" o "0/1").
+        La <strong>regresión logística</strong> es un modelo de <em>aprendizaje supervisado</em> ampliamente
+        utilizado en <strong>problemas de clasificación</strong>. A diferencia de la regresión lineal,
+        que predice valores continuos, la regresión logística está diseñada para predecir
+        <strong>probabilidades</strong> que luego se transforman en categorías discretas
+        (por ejemplo: <em>sí/no</em>, <em>positivo/negativo</em>, <em>verdadero/falso</em>).
     </p>
 
     <p>
-        A diferencia de la regresión lineal, la regresión logística no predice directamente un valor numérico, 
-        sino la <strong>probabilidad</strong> de que una observación pertenezca a una clase. 
-        Para lograrlo, utiliza la función sigmoide o logística, que transforma cualquier valor real en un número entre 0 y 1.
+        El modelo se basa en la <strong>función sigmoide (o logística)</strong>, que convierte la
+        combinación lineal de variables de entrada en un valor entre 0 y 1. Ese valor se interpreta
+        como una probabilidad y, al aplicar un umbral (por lo general 0.5), se asigna la clase final.
     </p>
 
-    <h5>Ejemplos de aplicación:</h5>
+    <h3>Variable objetivo binaria y probabilidad mediante sigmoide/logit</h3>
     <ul>
-        <li>Clasificación de correos electrónicos como <em>spam</em> o <em>no spam</em>.</li>
-        <li>Diagnóstico médico (por ejemplo, predecir si un paciente tiene una enfermedad o no).</li>
-        <li>Predicción de abandono de clientes en un servicio (churn).</li>
+        <li>
+            En la regresión logística, la <strong>variable dependiente</strong> es binaria,
+            es decir, solo tiene dos posibles resultados distintos, como “sí/no”, “0/1” o
+            “aprobado/rechazado”.
+        </li>
+        <li>
+            El modelo estima la <strong>probabilidad</strong> de que ocurra uno de esos dos eventos
+            usando una función <em>sigmoide</em>, que convierte la entrada del modelo en un valor entre 0 y 1.
+        </li>
+        <li>
+            El término <strong>logit</strong> se refiere a modelar la <em>razón de probabilidades (odds)</em>
+            de que ocurra el evento frente a que no ocurra, aplicando el logaritmo de esa razón para
+            obtener una relación lineal con respecto a las variables independientes.
+        </li>
     </ul>
 
-    <h5>Referencias:</h5>
+    <p>
+        En otras palabras, la regresión logística conecta las variables predictoras con la
+        <strong>probabilidad de que la clase positiva ocurra</strong>, proporcionando un modelo
+        interpretable y útil en muchos contextos.
+    </p>
+
+    <h3>Ejemplos de uso</h3>
     <ul>
-        <li><a href="https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression" target="_blank">Scikit-learn: Logistic Regression</a></li>
-        <li><a href="https://towardsdatascience.com/introduction-to-logistic-regression-66248243c148" target="_blank">Introducción a la regresión logística</a></li>
+        <li><strong>Salud:</strong> predecir la probabilidad de que un paciente tenga una enfermedad (ej. diabetes o cáncer).</li>
+        <li><strong>Finanzas:</strong> detectar transacciones fraudulentas en tiempo real.</li>
+        <li><strong>Marketing:</strong> estimar la probabilidad de que un cliente abandone un servicio (churn prediction).</li>
+        <li><strong>RR. HH.:</strong> predecir la probabilidad de que un candidato sea contratado en función de sus características.</li>
+        <li><strong>Educación:</strong> identificar estudiantes en riesgo de reprobar una materia.</li>
+    </ul>
+
+    <h3>Referencias</h3>
+    <ul>
+        <li>
+            Amazon Web Services. (s. f.). ¿Qué es la regresión logística?  
+            Recuperado de <a href="https://aws.amazon.com/es/what-is/logistic-regression" target="_blank">
+            https://aws.amazon.com/es/what-is/logistic-regression</a>
+        </li>
+        <li>
+            IBM. (2025, 14 de mayo). What Is Logistic Regression?  
+            Recuperado de <a href="https://www.ibm.com/think/topics/logistic-regression" target="_blank">
+            https://www.ibm.com/think/topics/logistic-regression</a>
+        </li>
     </ul>
 </div>
 {% endblock %}

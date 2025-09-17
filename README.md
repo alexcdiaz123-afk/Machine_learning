@@ -91,3 +91,53 @@ Se consultó código de ejemplo proporcionado por la IA, lo que ayudó a aprende
 La IA también sirvió para resolver problemas técnicos y errores comunes, como dificultades en la instalación de paquetes o dependencias definidas en el requirements.txt, asegurando que el entorno de desarrollo estuviera correctamente configurado.
 
 El uso de la IA fue puramente explicativo y de apoyo académico, complementando la investigación y la implementación realizada por el equipo.
+# Proyecto: #3 Regresiones Logísticas
+
+Este módulo del proyecto integra la implementación de una regresión logística aplicada a la predicción de deserción en un gimnasio. 
+La regresión logística es un algoritmo supervisado utilizado principalmente para problemas de clasificación binaria, donde el objetivo es predecir 
+si un evento ocurrirá o no (ejemplo: “sí/no”, “0/1”, “aprobado/rechazado”).
+
+# Funcionalidades:
+
+Se agregaron dos nuevas funcionalidades al proyecto:
+
+- **Conceptos básicos:** explicación teórica sobre la regresión logística, el uso de la función sigmoide/logit, la variable objetivo binaria y ejemplos prácticos de aplicación en diferentes contextos.
+- **Ejercicio práctico:** implementación de un modelo de clasificación que predice si un usuario se dará de baja en un gimnasio a partir de variables relacionadas con su comportamiento.
+
+# Conceptos básicos:
+
+La regresión logística se centra en problemas de clasificación binaria. A través de la función sigmoide, convierte las entradas en probabilidades entre 0 y 1, permitiendo decidir si un caso pertenece a la clase positiva (“1”) o negativa (“0”).  
+También se utiliza el **logit**, que transforma la razón de probabilidades (odds) en una escala lineal para relacionar predictores con la probabilidad de ocurrencia del evento.
+
+En este proyecto se incluyen explicaciones breves y referencias académicas que permiten entender el funcionamiento del modelo y sus principales aplicaciones.
+
+# Ejercicio práctico:
+
+Se desarrolló un ejercicio práctico de predicción de deserción en un gimnasio, con el siguiente planteamiento:
+
+- **Variables predictoras:**  
+  - Frecuencia de visitas  
+  - Tiempo inscrito  
+  - Uso de clases grupales (categórica: Sí/No)  
+  - Edad  
+
+- **Variable objetivo:**  
+  - ¿Se da de baja? (Sí/No)  
+
+El código implementado (`logistic_model.py`) permite:  
+- Entrenar el modelo de regresión logística.  
+- Escalar y preparar los datos para un mejor ajuste.  
+- Guardar el modelo entrenado y su scaler para realizar predicciones en la interfaz web.  
+- Generar métricas de evaluación como accuracy, reporte de clasificación y matriz de confusión.  
+- Guardar una visualización de la matriz de confusión para analizar el desempeño del modelo.  
+
+# Uso de IA como apoyo
+
+Durante el desarrollo del módulo de regresión logística, se utilizaron herramientas de inteligencia artificial como ChatGPT y Gemini como apoyo en:
+
+- Comprender el funcionamiento de la regresión logística, la función sigmoide y el logit.  
+- Adaptar código de ejemplo en Python a las necesidades específicas del proyecto.  
+- Resolver dudas conceptuales sobre la clasificación binaria y las métricas de evaluación.  
+- Solucionar errores técnicos durante la implementación, como el manejo de variables categóricas, la preparación del dataset y la generación de gráficos.  
+
+El uso de la IA fue principalmente de apoyo académico y técnico, asegurando una mejor comprensión y correcta implementación del modelo en el proyecto.

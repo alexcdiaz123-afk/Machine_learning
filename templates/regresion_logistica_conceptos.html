@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Regresión Logística: Conceptos Básicos</h1>
+
+    <p>
+        La <strong>regresión logística</strong> es un modelo de <em>aprendizaje supervisado</em> ampliamente
+        utilizado en <strong>problemas de clasificación</strong>. A diferencia de la regresión lineal,
+        que predice valores continuos, la regresión logística está diseñada para predecir
+        <strong>probabilidades</strong> que luego se transforman en categorías discretas
+        (por ejemplo: <em>sí/no</em>, <em>positivo/negativo</em>, <em>verdadero/falso</em>).
+    </p>
+
+    <p>
+        El modelo se basa en la <strong>función sigmoide (o logística)</strong>, que convierte la
+        combinación lineal de variables de entrada en un valor entre 0 y 1. Ese valor se interpreta
+        como una probabilidad y, al aplicar un umbral (por lo general 0.5), se asigna la clase final.
+    </p>
+
+    <h3>Variable objetivo binaria y probabilidad mediante sigmoide/logit</h3>
+    <ul>
+        <li>
+            En la regresión logística, la <strong>variable dependiente</strong> es binaria,
+            es decir, solo tiene dos posibles resultados distintos, como “sí/no”, “0/1” o
+            “aprobado/rechazado”.
+        </li>
+        <li>
+            El modelo estima la <strong>probabilidad</strong> de que ocurra uno de esos dos eventos
+            usando una función <em>sigmoide</em>, que convierte la entrada del modelo en un valor entre 0 y 1.
+        </li>
+        <li>
+            El término <strong>logit</strong> se refiere a modelar la <em>razón de probabilidades (odds)</em>
+            de que ocurra el evento frente a que no ocurra, aplicando el logaritmo de esa razón para
+            obtener una relación lineal con respecto a las variables independientes.
+        </li>
+    </ul>
+
+    <p>
+        En otras palabras, la regresión logística conecta las variables predictoras con la
+        <strong>probabilidad de que la clase positiva ocurra</strong>, proporcionando un modelo
+        interpretable y útil en muchos contextos.
+    </p>
+
+    <h3>Ejemplos de uso</h3>
+    <ul>
+        <li><strong>Salud:</strong> predecir la probabilidad de que un paciente tenga una enfermedad (ej. diabetes o cáncer).</li>
+        <li><strong>Finanzas:</strong> detectar transacciones fraudulentas en tiempo real.</li>
+        <li><strong>Marketing:</strong> estimar la probabilidad de que un cliente abandone un servicio (churn prediction).</li>
+        <li><strong>RR. HH.:</strong> predecir la probabilidad de que un candidato sea contratado en función de sus características.</li>
+        <li><strong>Educación:</strong> identificar estudiantes en riesgo de reprobar una materia.</li>
+    </ul>
+
+    <h3>Referencias</h3>
+    <ul>
+        <li>
+            Amazon Web Services. (s. f.). ¿Qué es la regresión logística?  
+            Recuperado de <a href="https://aws.amazon.com/es/what-is/logistic-regression" target="_blank">
+            https://aws.amazon.com/es/what-is/logistic-regression</a>
+        </li>
+        <li>
+            IBM. (2025, 14 de mayo). What Is Logistic Regression?  
+            Recuperado de <a href="https://www.ibm.com/think/topics/logistic-regression" target="_blank">
+            https://www.ibm.com/think/topics/logistic-regression</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}

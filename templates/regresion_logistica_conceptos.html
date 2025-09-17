@@ -1,68 +1,133 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4">Regresión Logística: Conceptos Básicos</h1>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Regresión logística — Predicción de deserción (Gimnasio)</h2>
+    <small class="text-muted">Variables: frecuencia_visitas, tiempo_inscrito, uso_clases, edad</small>
+  </div>
 
-    <p>
-        La <strong>regresión logística</strong> es un modelo de <em>aprendizaje supervisado</em> ampliamente
-        utilizado en <strong>problemas de clasificación</strong>. A diferencia de la regresión lineal,
-        que predice valores continuos, la regresión logística está diseñada para predecir
-        <strong>probabilidades</strong> que luego se transforman en categorías discretas
-        (por ejemplo: <em>sí/no</em>, <em>positivo/negativo</em>, <em>verdadero/falso</em>).
-    </p>
+  <div class="row">
+    <!-- COL IZQUIERDA -->
+    <div class="col-lg-5">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h4 class="card-title fs-4">Formulario de predicción</h4>
+          <form method="post">
+            <input type="hidden" name="action" value="predict">
 
-    <p>
-        El modelo se basa en la <strong>función sigmoide (o logística)</strong>, que convierte la
-        combinación lineal de variables de entrada en un valor entre 0 y 1. Ese valor se interpreta
-        como una probabilidad y, al aplicar un umbral (por lo general 0.5), se asigna la clase final.
-    </p>
+            <div class="mb-2">
+              <label class="form-label">Frecuencia de visitas (por semana)</label>
+              <input name="frecuencia_visitas" class="form-control" type="number" step="0.1" required>
+            </div>
 
-    <h3>Variable objetivo binaria y probabilidad mediante sigmoide/logit</h3>
-    <ul>
-        <li>
-            En la regresión logística, la <strong>variable dependiente</strong> es binaria,
-            es decir, solo tiene dos posibles resultados distintos, como “sí/no”, “0/1” o
-            “aprobado/rechazado”.
-        </li>
-        <li>
-            El modelo estima la <strong>probabilidad</strong> de que ocurra uno de esos dos eventos
-            usando una función <em>sigmoide</em>, que convierte la entrada del modelo en un valor entre 0 y 1.
-        </li>
-        <li>
-            El término <strong>logit</strong> se refiere a modelar la <em>razón de probabilidades (odds)</em>
-            de que ocurra el evento frente a que no ocurra, aplicando el logaritmo de esa razón para
-            obtener una relación lineal con respecto a las variables independientes.
-        </li>
-    </ul>
+            <div class="mb-2">
+              <label class="form-label">Tiempo inscrito (meses)</label>
+              <input name="tiempo_inscrito" class="form-control" type="number" step="0.1" required>
+            </div>
 
-    <p>
-        En otras palabras, la regresión logística conecta las variables predictoras con la
-        <strong>probabilidad de que la clase positiva ocurra</strong>, proporcionando un modelo
-        interpretable y útil en muchos contextos.
-    </p>
+            <div class="mb-2">
+              <label class="form-label">Uso de clases grupales</label>
+              <select name="uso_clases" class="form-control" required>
+                <option value="Sí">Sí</option>
+                <option value="No">No</option>
+              </select>
+            </div>
 
-    <h3>Ejemplos de uso</h3>
-    <ul>
-        <li><strong>Salud:</strong> predecir la probabilidad de que un paciente tenga una enfermedad (ej. diabetes o cáncer).</li>
-        <li><strong>Finanzas:</strong> detectar transacciones fraudulentas en tiempo real.</li>
-        <li><strong>Marketing:</strong> estimar la probabilidad de que un cliente abandone un servicio (churn prediction).</li>
-        <li><strong>RR. HH.:</strong> predecir la probabilidad de que un candidato sea contratado en función de sus características.</li>
-        <li><strong>Educación:</strong> identificar estudiantes en riesgo de reprobar una materia.</li>
-    </ul>
+            <div class="mb-2">
+              <label class="form-label">Edad</label>
+              <input name="edad" class="form-control" type="number" step="1" required>
+            </div>
 
-    <h3>Referencias</h3>
-    <ul>
-        <li>
-            Amazon Web Services. (s. f.). ¿Qué es la regresión logística?  
-            Recuperado de <a href="https://aws.amazon.com/es/what-is/logistic-regression" target="_blank">
-            https://aws.amazon.com/es/what-is/logistic-regression</a>
-        </li>
-        <li>
-            IBM. (2025, 14 de mayo). What Is Logistic Regression?  
-            Recuperado de <a href="https://www.ibm.com/think/topics/logistic-regression" target="_blank">
-            https://www.ibm.com/think/topics/logistic-regression</a>
-        </li>
-    </ul>
+            <div class="mb-2">
+              <label class="form-label">Threshold (0 - 1)</label>
+              <input name="threshold" class="form-control" type="number" step="0.01" value="0.5" min="0" max="1">
+            </div>
+
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-primary">Predecir</button>
+              <button type="submit" formaction="" formmethod="post" name="action" value="train" class="btn btn-success">Entrenar / Evaluar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      {% if prediction_text %}
+      <div class="alert alert-info fs-5">
+        <strong>Predicción:</strong>
+        <div class="display-6">{{ prediction_text }}</div>
+      </div>
+      {% endif %}
+
+      <div class="card">
+        <div class="card-body small">
+          <h4 class="fs-4">Descripción del dataset</h4>
+          <ul class="mb-0">
+            <li><strong>frecuencia_visitas</strong>: promedio de visitas por semana.</li>
+            <li><strong>tiempo_inscrito</strong>: meses de antigüedad.</li>
+            <li><strong>uso_clases</strong>: 'Sí' = asiste a clases grupales, 'No' = no asiste.</li>
+            <li><strong>edad</strong>: años.</li>
+            <li><strong>target</strong>: 1 = se da de baja; 0 = permanece.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- COL DERECHA -->
+    <div class="col-lg-7">
+      <div class="row g-3">
+
+        <div class="col-md-6">
+          <div class="card text-center">
+            <div class="card-body">
+              <h4 class="card-subtitle mb-2 text-muted fs-4">Exactitud</h4>
+              {% if metrics %}
+                <p class="display-6 mb-0">{{ metrics.accuracy if metrics.accuracy is defined else metrics['accuracy'] }}</p>
+              {% else %}
+                <p class="text-muted mb-0">Sin entrenar</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card text-center">
+            <div class="card-body">
+              <h4 class="card-subtitle mb-2 text-muted fs-4">Observaciones</h4>
+              <p class="mb-0 small">Entrena con el botón <strong>Entrenar / Evaluar</strong> para obtener métricas y matriz.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="fs-4">Reporte de clasificación</h4>
+              {% if report_html %}
+                <div class="table-responsive">{{ report_html|safe }}</div>
+              {% else %}
+                <p class="text-muted">No hay reporte disponible. Entrena el modelo.</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="fs-4">Matriz de confusión</h4>
+              {% if cm_img %}
+                <img src="{{ cm_img }}" alt="Matriz de confusión" class="img-fluid border">
+                <p class="small text-muted mt-2">Filas = reales (0/1) — Columnas = predichos (0/1)</p>
+              {% else %}
+                <p class="text-muted">No hay imagen. Entrena el modelo para generarla.</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /row metrics -->
+    </div><!-- /col derecha -->
+  </div><!-- /row principal -->
 </div>
+
 {% endblock %}

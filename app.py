@@ -1,6 +1,7 @@
 from flask import Flask, render_template, abort, request, url_for
 from regresion_lineal import predict, plot_data_and_regression, plot_new_data  # funciones reales
 import os
+from svm_model import evaluate as svm_evaluate, predict_label as svm_predict_label
 
 app = Flask(__name__)
 

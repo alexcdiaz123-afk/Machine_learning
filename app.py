@@ -339,4 +339,7 @@ def clasificacion_practico():
         threshold=threshold,
         cases=cases
     )
+@app.route('/clasificacion/conceptos')
+def clasificacion_conceptos():
+    return render_template('clasificacion_conceptos.html')
 

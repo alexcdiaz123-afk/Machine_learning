@@ -141,3 +141,117 @@ Durante el desarrollo del módulo de regresión logística, se utilizaron herram
 - Solucionar errores técnicos durante la implementación, como el manejo de variables categóricas, la preparación del dataset y la generación de gráficos.  
 
 El uso de la IA fue principalmente de apoyo académico y técnico, asegurando una mejor comprensión y correcta implementación del modelo en el proyecto.
+# Proyecto: Algoritmos de Clasificación – Support Vector Machines (SVM):
+Este módulo del proyecto integra la implementación de un algoritmo de clasificación (SVM) dentro de la aplicación web Flask ya creada.
+El objetivo es predecir si una célula es Cancerosa o No cancerosa, a partir de características extraídas de imágenes celulares.
+
+# Funcionalidades
+
+Se agregaron nuevas funcionalidades al proyecto:
+
+Pestaña en la web: Tipos de Algoritmos de Clasificación.
+
+Submenús:
+
+Conceptos básicos: síntesis teórica del algoritmo, presentada en un mapa conceptual en MindMeister con referencias APA 7.
+
+Caso práctico (SVM – Imágenes celulares):
+
+Carga de datos.
+
+Entrenamiento y evaluación del modelo con métricas.
+
+Predicción Sí/No en la interfaz web.
+
+Desarrollo técnico:
+
+Creación de un script .py con el modelo de SVM.
+
+Implementación de funciones estándar para todos los algoritmos:
+
+evaluate() → retorna métricas y genera matriz de confusión.
+
+predict_label(features, threshold=0.5) → retorna “Sí/No” y la probabilidad asociada.
+
+Integración con Flask:
+
+Nuevas rutas en app.py para renderizar el formulario y mostrar resultados.
+
+Creación de un archivo HTML específico para el práctico, con formulario y visualización de resultados.
+
+# Conceptos básicos
+
+El algoritmo Support Vector Machines (SVM) se utiliza para clasificación binaria y multiclase. Su objetivo es encontrar un hiperplano que separe los datos de manera óptima, maximizando el margen entre clases.
+
+En este proyecto:
+
+Se trabaja con un caso binario: Célula cancerosa (1) vs No cancerosa (0).
+
+Se aplicó escalado de variables con StandardScaler dentro de un Pipeline, evitando data leakage.
+
+Se documentó el significado de las clases y variables:
+
+Variables independientes:
+
+Textura de la imagen
+
+Contraste
+
+Forma del núcleo
+
+Área celular
+
+Densidad
+
+Variable objetivo:
+
+Tipo de célula → Cancerosa (1) / No cancerosa (0)
+
+# Ejercicio práctico: Clasificación de imágenes celulares
+
+El caso práctico implementado incluye:
+
+Carga de datos y preprocesamiento:
+
+División 80/20 entre entrenamiento y prueba.
+
+Escalado de variables numéricas.
+
+Entrenamiento del modelo:
+
+Algoritmo asignado: SVM.
+
+Control de semilla para reproducibilidad.
+
+Evaluación en test:
+
+Exactitud (accuracy) mostrada en una tarjeta.
+
+Reporte de clasificación (precision, recall, F1, support).
+
+Matriz de confusión 2×2 con etiquetas claras (Real vs Predicho).
+
+Formulario de predicción en Flask:
+
+Inputs numéricos para cada variable independiente.
+
+Campo opcional de umbral (threshold).
+
+Botón “Predecir”.
+
+Resultado dinámico:
+
+Texto grande: “Predicción: Sí” o “Predicción: No”.
+
+Probabilidad entre [0,1] (4 decimales).
+
+Interpretación breve sobre el umbral aplicado.
+
+# Uso de IA como apoyo
+
+Durante el desarrollo del caso práctico, se utilizó ChatGPT como apoyo en:
+Generar las funciones evaluate() y predict_label() con buenas prácticas.
+
+Resolver problemas de instalación de dependencias en Python 3.13 y configurar un entorno virtual (.venv) con requirements.txt
+
+El uso de IA fue de apoyo académico y técnico, facilitando la implementación del modelo de clasificación en la aplicación web.

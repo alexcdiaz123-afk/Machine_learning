@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h1>Clasificación con SVM — Caso práctico: Imágenes celulares</h1>
+
+  <h4>Descripción del dataset</h4>
+  <p>Variables independientes:
+    <ul>
+      <li><strong>textura</strong> (numérico) - requiere escalado</li>
+      <li><strong>contraste</strong> (numérico) - requiere escalado</li>
+      <li><strong>forma_nucleo</strong> (numérico) - requiere escalado</li>
+      <li><strong>area_cell</strong> (numérico) - requiere escalado</li>
+      <li><strong>densidad</strong> (numérico) - requiere escalado</li>
+    </ul>
+  </p>
+  <p>Variable objetivo: <strong>target</strong> (0 = No cancerosa, 1 = Cancerosa). Clase positiva = <strong>1 (Cancerosa)</strong>.</p>
+
+  <h4>Métricas (test)</h4>
+  <div class="card p-3 mb-3">
+    <p><strong>Exactitud (accuracy):</strong> <span class="badge bg-primary">{{ metrics.accuracy }}</span></p>
+  </div>
+
+  <h4>Reporte de clasificación</h4>
+  <div>
+    {{ metrics.report_html | safe }}
+  </div>
+
+  <h4>Matriz de confusión</h4>
+  <div>
+    <img src="{{ metrics.confusion_img }}" alt="Matriz de confusión" class="img-fluid">
+  </div>
+
+  {% if metrics.roc_img %}
+  <h4>ROC (opcional)</h4>
+  <div><img src="{{ metrics.roc_img }}" alt="ROC" class="img-fluid"></div>
+  {% endif %}
+
+  <hr>
+
+  <h3>Formulario de predicción</h3>
+  <form method="post" class="mb-4">
+    <div class="row">
+      <div class="col-md-4 mb-2">
+        <label>Textura</label>
+        <input step="0.001" type="number" name="textura" class="form-control" required>
+      </div>
+      <div class="col-md-4 mb-2">
+        <label>Contraste</label>
+        <input step="0.001" type="number" name="contraste" class="form-control" required>
+      </div>
+      <div class="col-md-4 mb-2">
+        <label>Forma del núcleo</label>
+        <input step="0.001" type="number" name="forma_nucleo" class="form-control" required>
+      </div>
+      <div class="col-md-4 mb-2">
+        <label>Área celular</label>
+        <input step="0.1" type="number" name="area_cell" class="form-control" required>
+      </div>
+      <div class="col-md-4 mb-2">
+        <label>Densidad</label>
+        <input step="0.001" type="number" name="densidad" class="form-control" required>
+      </div>
+      <div class="col-md-4 mb-2">
+        <label>Threshold (opcional, default 0.5)</label>
+        <input step="0.01" type="number" name="threshold" class="form-control" value="{{ threshold }}">
+      </div>
+    </div>
+
+    <button class="btn btn-success mt-3" type="submit">Predecir</button>
+  </form>
+
+  {% if prediction is not none %}
+<div class="alert alert-info">
+  <h4>Resultado</h4>
+  <p style="font-size:20px;"><strong>Predicción: {{ prediction }}</strong></p>
+  <p>Probabilidad (clase 1 = Cancerosa): <strong>{{ "%.4f"|format(prob) }}</strong></p>
+  <p>Interpretación: Con threshold = {{ threshold }}, la decisión es "{{ prediction }}". Cambiar el umbral puede aumentar sensibilidad o especificidad dependiendo del objetivo.</p>
+
+  <!-- Imagen según resultado -->
+  {% if prediction == "Sí" %}
+    <div class="mt-3 text-center">
+      <img src="{{ url_for('static', filename='images/celula_cancerosa.png') }}" 
+           alt="Célula cancerosa" class="img-fluid rounded shadow" style="max-width: 300px;">
+      <p class="mt-2 text-danger"><strong>Célula cancerosa</strong></p>
+    </div>
+  {% else %}
+    <div class="mt-3 text-center">
+      <img src="{{ url_for('static', filename='images/celula_sana.png') }}" 
+           alt="Célula sana" class="img-fluid rounded shadow" style="max-width: 300px;">
+      <p class="mt-2 text-success"><strong>Célula sana</strong></p>
+    </div>
+  {% endif %}
+</div>
+{% endif %}
+
+</div>
+{% endblock %}

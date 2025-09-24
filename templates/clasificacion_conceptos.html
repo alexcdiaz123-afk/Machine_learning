@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Conceptual</title>
+  <style>
+    /* El body y html ocupan todo el alto y ancho */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* El contenedor y el iframe se expanden al 100% */
+    .map-container {
+      width: 100%;
+      height: 100vh; /* altura de la ventana completa */
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="map-container">
+    <iframe
+      src="https://www.mindmeister.com/maps/public_map_shell/3823457211/tipos-de-algoritmos-de-clasificacion?no_share=1&no_logo=1"
+      allowfullscreen
+      loading="lazy">
+    </iframe>
+  </div>
+</body>
+</html>

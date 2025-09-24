@@ -1,6 +1,7 @@
 from flask import Flask, render_template, abort, request, url_for
 from regresion_lineal import predict, plot_data_and_regression, plot_new_data  # funciones reales
 import os
+from svm_model import evaluate as svm_evaluate, predict_label as svm_predict_label
 
 app = Flask(__name__)
 
@@ -307,5 +308,38 @@ def regresion_logistica_practico():
         report_html=report_html,
         cm_img=cm_img
     )
+@app.route('/clasificacion/practico', methods=['GET', 'POST'])
+def clasificacion_practico():
+    # Caso práctico SVM: evaluación y predicción
+    metrics = svm_evaluate()  # entrena si es necesario y devuelve métricas
+    prediction = None
+    prob = None
+    threshold = 0.5
+    if request.method == 'POST':
+        # extraer inputs del form (nombres deben coincidir)
+        features = {
+            "textura": float(request.form.get("textura", 0)),
+            "contraste": float(request.form.get("contraste", 0)),
+            "forma_nucleo": float(request.form.get("forma_nucleo", 0)),
+            "area_cell": float(request.form.get("area_cell", 0)),
+            "densidad": float(request.form.get("densidad", 0))
+        }
+        # threshold opcional
+        try:
+            threshold = float(request.form.get("threshold", 0.5))
+        except ValueError:
+            threshold = 0.5
+        prediction, prob = svm_predict_label(features, threshold=threshold)
 
+    return render_template(
+        'clasificacion_practico.html',
+        metrics=metrics,
+        prediction=prediction,
+        prob=prob,
+        threshold=threshold,
+        cases=cases
+    )
+@app.route('/clasificacion/conceptos')
+def clasificacion_conceptos():
+    return render_template('clasificacion_conceptos.html')
 

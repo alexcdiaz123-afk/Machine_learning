@@ -342,4 +342,33 @@ def clasificacion_practico():
 @app.route('/clasificacion/conceptos')
 def clasificacion_conceptos():
     return render_template('clasificacion_conceptos.html')
+# ===== Reinforcement Learning =====
+from rl_model import train_agent, get_policy  # funciones reales del agente RL
+
+@app.route('/rl/conceptos')
+def rl_conceptos():
+    return render_template('rl_conceptos.html', cases=cases)
+
+@app.route('/rl/practico', methods=['GET', 'POST'])
+def rl_practico():
+    policy_table = None
+    training_result = None
+
+    if request.method == 'POST':
+        action = request.form.get("action")
+
+        # Entrenar el agente
+        if action == "train":
+            training_result = train_agent()   # devuelve datos del entrenamiento
+            
+        # Ver política aprendida
+        if action == "policy":
+            policy_table = get_policy()      # retorna la tabla Q o política final
+
+    return render_template(
+        'rl_practico.html',
+        cases=cases,
+        policy_table=policy_table,
+        training_result=training_result
+    )
 

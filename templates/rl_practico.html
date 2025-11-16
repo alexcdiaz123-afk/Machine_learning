@@ -1,106 +1,152 @@
-<!-- rl_case.html -->
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <title>RL — Caso práctico</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 16px; }
-    .controls { margin-bottom: 12px; }
-    .controls label { margin-right: 8px; }
-    .plots { display:flex; gap:16px; margin-top:12px; flex-wrap:wrap; }
-    .plots img { max-width:420px; border:1px solid #ccc; }
-    .indicators p { margin:6px 0; }
-  </style>
-</head>
-<body>
-  <h2>Caso práctico — GridWorld (Q-Learning)</h2>
+{% extends "base.html" %}
+{% block content %}
 
-  <div class="controls">
-    <label>Episodios: <input id="episodes" type="number" value="1000" min="1"></label>
-    <label>α: <input id="alpha" type="number" step="0.01" value="0.1"></label>
-    <label>γ: <input id="gamma" type="number" step="0.01" value="0.99"></label>
-    <label>ε: <input id="epsilon" type="number" step="0.01" value="0.3"></label>
-    <label>Grid size: <input id="size" type="number" value="5" min="3" max="12"></label>
-    <button id="trainBtn">Entrenar</button>
-    <button id="simulateBtn">Simular política</button>
-  </div>
+<h2>Caso práctico — Entrenamiento de un Robot con Q-Learning</h2>
 
-  <div class="indicators">
-    <p>Estado: <span id="status">—</span></p>
-    <p>Tiempo entrenamiento: <span id="elapsed">—</span></p>
-    <p>Recompensa promedio (últimos 100): <span id="avg_reward">—</span></p>
-  </div>
+<p>
+    Imagina que tienes un pequeño robot dentro de un supermercado.  
+    Su objetivo es llegar a un punto específico del mapa (por ejemplo, una estantería con productos).  
+</p>
 
-  <div class="plots">
+<p>
+    El robot no sabe cómo llegar al inicio. Pero poco a poco:
+</p>
+
+<ul>
+    <li>Prueba movimientos (explora).</li>
+    <li>Recibe recompensas si va por buen camino.</li>
+    <li>Recibe castigos si choca con un obstáculo.</li>
+    <li>Aprende qué movimientos funcionan mejor.</li>
+</ul>
+
+<p>
+    Este proceso se llama <strong>Q-Learning</strong>: un método donde el robot aprende por experiencia,
+    sin que nadie le diga explícitamente qué debe hacer.
+</p>
+
+<hr>
+
+<h3>Configura cómo aprenderá el robot</h3>
+<p>Modifica los valores si quieres experimentar. Si no sabes qué poner, deja los valores por defecto.</p>
+
+<div class="controls">
+    <label>Episodios (intentos del robot): 
+        <input id="episodes" type="number" value="1000" min="1">
+    </label>
+
+    <label>α (Velocidad de aprendizaje): 
+        <input id="alpha" type="number" step="0.01" value="0.1">
+    </label>
+
+    <label>γ (Importancia del futuro): 
+        <input id="gamma" type="number" step="0.01" value="0.99">
+    </label>
+
+    <label>ε (Exploración): 
+        <input id="epsilon" type="number" step="0.01" value="0.3">
+    </label>
+
+    <label>Tamaño del mapa (cuadrícula): 
+        <input id="size" type="number" value="5" min="3" max="12">
+    </label>
+
+    <button id="trainBtn">Entrenar robot</button>
+    <button id="simulateBtn">Simular recorrido</button>
+</div>
+
+<hr>
+
+<h3>Indicadores del proceso</h3>
+
+<div class="indicators">
+    <p><strong>Estado del robot:</strong> <span id="status">—</span></p>
+    <p><strong>Tiempo de entrenamiento:</strong> <span id="elapsed">—</span></p>
+    <p><strong>Recompensa promedio (últimos 100 pasos):</strong> <span id="avg_reward">—</span></p>
+</div>
+
+<hr>
+
+<h3>Resultados visuales</h3>
+<p>Estas imágenes te muestran cómo va aprendiendo el robot.</p>
+
+<div class="plots">
     <div>
-      <h4>Evolución recompensa</h4>
-      <img id="rewardPlot" src="" alt="Recompensa" />
+        <h4>Evolución de la recompensa</h4>
+        <p>Si la línea sube, significa que el robot está aprendiendo a moverse mejor.</p>
+        <img id="rewardPlot" src="" alt="Recompensa" />
     </div>
+
     <div>
-      <h4>Trayectoria greedy</h4>
-      <img id="trajPlot" src="" alt="Trayectoria" />
+        <h4>Recorrido óptimo aprendido</h4>
+        <p>Aquí verás el camino que el robot toma después de haber aprendido.</p>
+        <img id="trajPlot" src="" alt="Recorrido" />
     </div>
-  </div>
+</div>
 
-  <script>
-    const trainBtn = document.getElementById('trainBtn');
-    const simulateBtn = document.getElementById('simulateBtn');
-    const statusSpan = document.getElementById('status');
-    const elapsedSpan = document.getElementById('elapsed');
-    const avgRewardSpan = document.getElementById('avg_reward');
-    const rewardPlot = document.getElementById('rewardPlot');
-    const trajPlot = document.getElementById('trajPlot');
+<script>
+const trainBtn = document.getElementById('trainBtn');
+const simulateBtn = document.getElementById('simulateBtn');
+const statusSpan = document.getElementById('status');
+const elapsedSpan = document.getElementById('elapsed');
+const avgRewardSpan = document.getElementById('avg_reward');
+const rewardPlot = document.getElementById('rewardPlot');
+const trajPlot = document.getElementById('trajPlot');
 
-    trainBtn.addEventListener('click', async () => {
-      const payload = {
+trainBtn.addEventListener('click', async () => {
+    const payload = {
         episodes: parseInt(document.getElementById('episodes').value),
         alpha: parseFloat(document.getElementById('alpha').value),
         gamma: parseFloat(document.getElementById('gamma').value),
         epsilon: parseFloat(document.getElementById('epsilon').value),
         size: parseInt(document.getElementById('size').value)
-      };
-      statusSpan.textContent = 'Entrenando... (petición en curso)';
-      rewardPlot.src = '';
-      trajPlot.src = '';
-      try {
+    };
+
+    statusSpan.textContent = 'Entrenando robot...';
+    rewardPlot.src = '';
+    trajPlot.src = '';
+
+    try {
         const resp = await fetch('/train', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(payload)
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
         });
         const data = await resp.json();
+
         if (data.status === 'ok') {
-          statusSpan.textContent = 'Entrenamiento completado';
-          elapsedSpan.textContent = data.results.elapsed_seconds.toFixed(2) + ' s';
-          avgRewardSpan.textContent = data.results.avg_reward_last_100;
-          rewardPlot.src = 'data:image/png;base64,' + data.reward_plot;
-          trajPlot.src = 'data:image/png;base64,' + data.trajectory_plot;
+            statusSpan.textContent = 'Entrenamiento completado ✔';
+            elapsedSpan.textContent = data.results.elapsed_seconds.toFixed(2) + ' s';
+            avgRewardSpan.textContent = data.results.avg_reward_last_100;
+            rewardPlot.src = 'data:image/png;base64,' + data.reward_plot;
+            trajPlot.src = 'data:image/png;base64,' + data.trajectory_plot;
         } else {
-          statusSpan.textContent = 'Error: ' + (data.message || 'Desconocido');
+            statusSpan.textContent = 'Error: ' + (data.message || 'Desconocido');
         }
-      } catch (err) {
+    } catch (err) {
         console.error(err);
         statusSpan.textContent = 'Error de red o servidor';
-      }
-    });
+    }
+});
 
-    simulateBtn.addEventListener('click', async () => {
-      statusSpan.textContent = 'Simulando política...';
-      try {
+simulateBtn.addEventListener('click', async () => {
+    statusSpan.textContent = 'Simulando recorrido...';
+
+    try {
         const resp = await fetch('/simulate');
         const data = await resp.json();
+
         if (data.status === 'ok') {
-          statusSpan.textContent = 'Simulación completada. Recompensa total: ' + data.total_reward.toFixed(2);
-          trajPlot.src = 'data:image/png;base64,' + data.trajectory_plot;
+            statusSpan.textContent = 'Simulación completada. Recompensa total: ' 
+                                     + data.total_reward.toFixed(2);
+            trajPlot.src = 'data:image/png;base64,' + data.trajectory_plot;
         } else {
-          statusSpan.textContent = 'Error: ' + (data.message || 'Desconocido');
+            statusSpan.textContent = 'Error: ' + (data.message || 'Desconocido');
         }
-      } catch (err) {
+    } catch (err) {
         console.error(err);
         statusSpan.textContent = 'Error en simulación';
-      }
-    });
-  </script>
-</body>
-</html>
+    }
+});
+</script>
+
+{% endblock %}

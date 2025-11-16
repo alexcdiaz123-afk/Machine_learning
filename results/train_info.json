@@ -1,0 +1,10 @@
+{
+  "episodes": 200,
+  "alpha": 1.0,
+  "gamma": 0.99,
+  "epsilon_initial": 2.0,
+  "epsilon_decay": 0.995,
+  "elapsed_seconds": 0.5064988136291504,
+  "avg_reward_last_100": -47.003999999999905,
+  "model_path": "models/q_table.pkl"
+}

@@ -44,4 +44,21 @@ En otras palabras, en lugar de decirle a la computadora exactamente cómo hacer 
     <h3>¡Prueba el ejercicio práctico de Regresión Logística!</h3>
     <a href="{{ url_for('regresion_logistica_practico') }}" class="btn btn-highlight">Ir al ejercicio práctico</a>
   </div>
+   <h2>Reinforcement Learning</h2>
+  <p>Se incluye una pestaña dedicada al Aprendizaje por Refuerzo con dos apartados:</p>
+
+  <ul>
+    <li>
+      <strong>Conceptos básicos:</strong> agente, entorno, política, recompensas, exploración/explotación, algoritmos principales.
+      <br>
+      <a href="{{ url_for('rl_conceptos') }}" class="btn">Ver conceptos</a>
+    </li>
+
+    <li>
+      <strong>Caso práctico:</strong> ejemplo de RL aplicado (entornos simples como GridWorld o un agente básico).
+      <br>
+      <a href="{{ url_for('rl_practico') }}" class="btn">Ver caso práctico</a>
+    </li>
+  </ul>
+
 {% endblock %}

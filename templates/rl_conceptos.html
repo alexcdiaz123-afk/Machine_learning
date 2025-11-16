@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 class="mt-4">Aprendizaje por Refuerzo – Conceptos Básicos</h1>
+
+<p>
+    El <strong>Aprendizaje por Refuerzo</strong> (Reinforcement Learning, RL) es un paradigma del aprendizaje automático
+    donde un agente aprende a tomar decisiones mediante la interacción con un entorno. El agente recibe recompensas o castigos según sus acciones,
+    y su objetivo es maximizar la recompensa acumulada a largo plazo. A diferencia del aprendizaje supervisado,
+    en el que se dispone de ejemplos etiquetados, en el RL no existe una “respuesta correcta” explícita.
+    Con respecto al aprendizaje no supervisado, que busca patrones en los datos, el RL se centra en aprender una estrategia óptima de comportamiento basada en experiencia.
+</p>
+
+<hr>
+
+<h2>Componentes del Modelo de Aprendizaje por Refuerzo</h2>
+
+<ul>
+    <li><strong>Agente:</strong> entidad que toma decisiones.</li>
+    <li><strong>Entorno (Environment):</strong> sistema con el que interactúa el agente.</li>
+    <li><strong>Estado (State):</strong> representación del entorno en un momento dado.</li>
+    <li><strong>Acciones (Actions):</strong> opciones de comportamiento que el agente puede ejecutar.</li>
+    <li><strong>Recompensa (Reward):</strong> señal numérica que indica si la acción fue beneficiosa o no.</li>
+    <li><strong>Política (Policy):</strong> estrategia que define cómo el agente elige sus acciones.</li>
+</ul>
+
+<hr>
+
+<h2>Principios del Ciclo de Aprendizaje</h2>
+
+<p>El ciclo del RL consiste en:</p>
+<ol>
+    <li><strong>Exploración:</strong> probar acciones nuevas para descubrir mejores estrategias.</li>
+    <li><strong>Explotación:</strong> usar el conocimiento adquirido para elegir la mejor acción posible.</li>
+    <li><strong>Retorno acumulado:</strong> suma de recompensas que el agente espera obtener a futuro.</li>
+    <li><strong>Descuento temporal (γ):</strong> coeficiente que pondera la importancia de recompensas futuras.</li>
+</ol>
+
+<hr>
+
+<h2>Algoritmos Principales de RL</h2>
+
+<h3>1. Q-Learning</h3>
+<p>
+    Es un algoritmo fuera de política (<em>off-policy</em>) que aprende el valor de cada acción incluso si no se ejecuta.
+    Actualiza una tabla Q(s,a) según la recompensa obtenida y el valor estimado del mejor estado futuro.
+</p>
+
+<h3>2. SARSA</h3>
+<p>
+    Es un algoritmo en política (<em>on-policy</em>) que actualiza los valores Q basándose en las acciones que realmente ejecuta el agente.
+    Su nombre proviene de la secuencia Estado–Acción–Recompensa–Estado–Acción.
+</p>
+
+<h3>3. Deep Q-Network (DQN)</h3>
+<p>
+    Combina RL con redes neuronales profundas para aproximar la función Q cuando los espacios de estados son enormes.
+    Fue popularizado por DeepMind con el agente que aprendió a jugar videojuegos de Atari directamente a partir de píxeles.
+</p>
+
+<hr>
+
+<h2>Buenas Prácticas en Aprendizaje por Refuerzo</h2>
+
+<ul>
+    <li>Mantener una <strong>tasa de exploración adecuada</strong> (por ejemplo, un decaimiento progresivo de ε).</li>
+    <li>Asegurar la <strong>estabilidad del aprendizaje</strong>, usando técnicas como experience replay (para DQN).</li>
+    <li>Diseñar una <strong>función de recompensa clara</strong> para evitar comportamientos no deseados.</li>
+    <li>Ajustar correctamente el <strong>factor de descuento</strong> según la naturaleza del problema.</li>
+    <li>Verificar la <strong>convergencia</strong> del agente mediante pruebas constantes.</li>
+    <li>Promover la <strong>generalización</strong> evitando que el agente memorize trayectorias específicas.</li>
+</ul>
+
+<hr>
+
+<h2>Referencias (APA 7)</h2>
+<ul>
+    <li>
+        Sutton, R. S., & Barto, A. G. (2018). <em>Reinforcement Learning: An Introduction</em> (2nd ed.). MIT Press.
+    </li>
+    <li>
+        Mnih, V., Kavukcuoglu, K., Silver, D., et al. (2015). Human-level control through deep reinforcement learning.
+        <em>Nature, 518</em>(7540), 529–533.
+    </li>
+    <li>
+        François-Lavet, V., Henderson, P., Islam, R., et al. (2018). An introduction to deep reinforcement learning.
+        <em>Foundations and Trends in Machine Learning, 11</em>(3–4), 219–354.
+    </li>
+</ul>
+
+{% endblock %}

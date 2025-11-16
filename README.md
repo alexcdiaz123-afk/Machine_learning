@@ -255,3 +255,112 @@ Generar las funciones evaluate() y predict_label() con buenas prácticas.
 Resolver problemas de instalación de dependencias en Python 3.13 y configurar un entorno virtual (.venv) con requirements.txt
 
 El uso de IA fue de apoyo académico y técnico, facilitando la implementación del modelo de clasificación en la aplicación web.
+Proyecto: #5 Aprendizaje por Refuerzo – Q-Learning (Supermercado Inteligente)
+
+# Reinforcement Learning:
+
+Este módulo del proyecto integra la implementación de un algoritmo de Aprendizaje por Refuerzo (Q-Learning) dentro de la aplicación web Flask. El objetivo es simular cómo un agente (un robot) aprende a desplazarse dentro de un entorno tipo supermercado, tomando decisiones óptimas mediante prueba y error hasta aprender la mejor ruta hacia su objetivo.
+
+# Funcionalidades
+
+Se agregaron nuevas funcionalidades al proyecto:
+
+Pestaña en la interfaz web dedicada al caso práctico de Aprendizaje por Refuerzo.
+
+Formulario interactivo que permite configurar:
+
+Número de episodios.
+
+Tasa de aprendizaje (alpha).
+
+Factor de descuento (gamma).
+
+Nivel de exploración (epsilon).
+
+Tamaño del mapa.
+
+Entrenamiento del agente Q-Learning desde el navegador, con generación automática de:
+
+Gráfica de recompensas obtenidas durante el entrenamiento.
+
+Representación visual del recorrido óptimo aprendido.
+
+Simulación del comportamiento del agente utilizando la tabla Q ya entrenada.
+
+# Descripción del entorno
+
+El entorno es una cuadrícula (grid) que simula un supermercado. En ella:
+
+El robot puede moverse arriba, abajo, izquierda o derecha.
+
+Cada movimiento otorga una recompensa:
+
+Penalización por movimientos irrelevantes o alejarse del objetivo.
+
+Recompensa positiva al llegar a la meta.
+
+Un episodio termina cuando el robot alcanza el objetivo o se excede el número máximo de pasos.
+
+La simulación final genera una imagen del camino que el agente aprendió como óptimo.
+
+Este entorno facilita comprender cómo un agente aprende mediante interacción directa, sin supervisión humana.
+
+# Algoritmo utilizado
+
+El modelo usa Q-Learning, uno de los algoritmos fundamentales del Aprendizaje por Refuerzo. Su objetivo es aprender una tabla Q que almacena el valor esperado de tomar cada acción en cada estado.
+
+El proceso implementado incluye:
+
+Política epsilon-greedy para equilibrar exploración y explotación.
+
+Actualización de valores Q mediante la ecuación de Bellman.
+
+Entrenamiento por episodios hasta estabilizar la política aprendida.
+
+Simulación posterior con política completamente explotativa (sin exploración).
+
+La implementación se encuentra en el archivo rl_agent.py.
+
+Comportamiento obtenido
+
+Durante el entrenamiento se observa:
+
+Que el agente inicia moviéndose al azar y recibiendo recompensas bajas.
+
+Que progresivamente encuentra rutas más cortas y consistentes.
+
+Que la recompensa promedio aumenta conforme mejora la política.
+
+Que la simulación final muestra el recorrido óptimo aprendido según los valores Q entrenados.
+
+El sistema genera dos gráficos:
+
+Evolución de recompensas durante el entrenamiento.
+
+Recorrido óptimo del agente en el entorno.
+
+# Integración con Flask
+
+Para conectar el algoritmo con la interfaz, se añadieron dos rutas en app.py:
+
+/train (POST): ejecuta el entrenamiento con los parámetros ingresados por el usuario.
+
+/simulate (GET): ejecuta la simulación final con la tabla Q ya entrenada.
+
+El archivo rl_practico.html maneja la interacción mediante JavaScript, mostrando en la página los resultados, métricas y gráficas generadas.
+
+# Uso de IA como apoyo
+
+Durante el desarrollo del módulo de Aprendizaje por Refuerzo se utilizaron herramientas de inteligencia artificial como ChatGPT como apoyo para:
+
+Comprender la estructura del algoritmo Q-Learning y su correcta implementación.
+
+Resolver dudas sobre el diseño del entorno y la forma de otorgar recompensas.
+
+Integrar el entrenamiento y la simulación con rutas Flask y peticiones fetch.
+
+Depurar errores relacionados con el intercambio de datos JSON y la generación de imágenes desde Python.
+
+Aclarar el funcionamiento de la política epsilon-greedy y la actualización de la tabla Q.
+
+El uso de la IA fue de apoyo académico y técnico, complementando la investigación conceptual y el desarrollo realizado en el proyecto.
